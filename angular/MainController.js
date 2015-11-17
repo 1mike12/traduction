@@ -7,62 +7,74 @@ app.controller("MainController", function ($window) {
 
     };
 
-    self.run = function () {
-
-    };
-
-
     self.parse = function () {
         var input = self.input;
-        var document = new xmldoc.XmlDocument(input);
-        document.eachChild(function (child, index, array) {
-            var attribute = child.attr.name;
+        input = "<z>" + input + "</z>";
+        var output;
 
-            if (attribute){
-                console.log(attribute);
-                child.attr.name = changeCase.snakeCase(attribute);
+        angular.forEach(self.filters, function (filter) {
+            if (filter.active) {
+                output = filter.getOutput(input);
+                output.replace(/<z>/g,"");
+                output.replace(/<z>/g,"");
             }
         });
 
-        self.output = document.toString();
+        self.output = output;
     };
 
+    /**
+     * https://github.com/nfarina/xmldoc
+     * https://www.npmjs.com/package/change-case
+     */
     self.filters = [
         {
-            name: "snake case",
+            name: "value: snake --> Title Case",
+            example:"snake_case --> Snake Case",
+            active: false,
+            param: "",
             pattern: "",
-            replace: ""
+            replace: "",
+            getOutput: function (input) {
+                var document = new xmldoc.XmlDocument(input);
+                document.eachChild(function (child, index, array) {
+                    var target = child.val;
+
+                    if (target) {
+                        console.log(target);
+                        child.val = changeCase.titleCase(target);
+                    }
+                });
+
+                return document.toString();
+            }
+        },
+        {
+            name: "snake name attribute",
+            active: false,
+            param: "",
+            pattern: "",
+            replace: "",
+            getOutput: function (input) {
+                var document = new xmldoc.XmlDocument(input);
+                document.eachChild(function (child, index, array) {
+                    var target = child.attr.name;
+
+                    if (target) {
+                        console.log(target);
+                        child.attr.name = changeCase.snakeCase(target);
+                    }
+                });
+
+                return document.toString();
+            }
 
         },
-        {
-            name: "strip dupes",
-            pattern: "",
-            replace: ""
-        },
-        {
-            name: "space to underline",
-            pattern: "",
-            replace: ""
-        },
-        {
-            name: "strip dupe content",
-            pattern: "",
-            replace: ""
-        },
-        {
-            name: "to lowercase",
-            pattern: "",
-            replace: ""
-        },
-        {
-            name: "to uppercase",
-            pattern: "",
-            replace: ""
-        }
     ];
 
     self.toggleFilter = function (filterObj) {
-
+        console.log(filterObj)
+        filterObj.active = !filterObj.active;
     };
 
     self.init();
