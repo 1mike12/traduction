@@ -11,19 +11,19 @@
     <div class="row">
         <div class="col s5">
             <div class="input-field">
-                <textarea id="source" class="materialize-textarea"></textarea>
-                <label for="source">Source</label>
+                <textarea ng-model="MCtrl.input" id="input" class="materialize-textarea"></textarea>
+                <label for="input">Input</label>
             </div>
 
         </div>
         <div class="col s5">
             <div class="input-field">
-                <textarea id="output" class="materialize-textarea"></textarea>
+                <textarea ng-model="MCtrl.output" id="output" class="materialize-textarea"></textarea>
                 <label for="output">Output</label>
             </div>
         </div>
         <div class="col s2">
-            <a class="waves-effect waves-light btn">Run</a>
+            <button ng-click="MCtrl.parse()" class="waves-effect waves-light btn">Run</button>
 
             <div class="input-field">
                 <input ng-model="filter" id="filter" type="text" class="validate">

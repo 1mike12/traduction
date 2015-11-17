@@ -1,18 +1,30 @@
 /**
  * Created by mike on 11/17/15.
  */
-app.controller("MainController", function(){
+app.controller("MainController", function ($window) {
     var self = this;
-    self.init = function(){
+    self.init = function () {
 
     };
 
-    self.run = function (){
+    self.run = function () {
 
     };
 
 
-    self.parse = function (){
+    self.parse = function () {
+        var input = self.input;
+        var document = new xmldoc.XmlDocument(input);
+        document.eachChild(function (child, index, array) {
+            var attribute = child.attr.name;
+
+            if (attribute){
+                console.log(attribute);
+                child.attr.name = changeCase.snakeCase(attribute);
+            }
+        });
+
+        self.output = document.toString();
     };
 
     self.filters = [
@@ -49,7 +61,7 @@ app.controller("MainController", function(){
         }
     ];
 
-    self.toggleFilter = function (filterObj){
+    self.toggleFilter = function (filterObj) {
 
     };
 
