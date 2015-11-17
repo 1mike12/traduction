@@ -11,24 +11,40 @@ app.controller("MainController", function(){
     self.filters = [
         {
             name: "snake case",
+            pattern: "",
+            replace: ""
 
         },
         {
             name: "strip dupes",
+            pattern: "",
+            replace: ""
         },
         {
-            name: "space to underline"
+            name: "space to underline",
+            pattern: "",
+            replace: ""
         },
         {
-            name: "strip dupe content"
+            name: "strip dupe content",
+            pattern: "",
+            replace: ""
         },
         {
-            name: "to lowercase"
+            name: "to lowercase",
+            pattern: "",
+            replace: ""
         },
         {
-            name: "to uppercase"
+            name: "to uppercase",
+            pattern: "",
+            replace: ""
         }
     ];
+
+    self.toggleFilter = function (filterObj){
+
+    };
 
     self.init();
 });
