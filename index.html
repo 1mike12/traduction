@@ -7,7 +7,7 @@
 </head>
 <body ng-app="app">
 
-<div class="">
+<div class="" ng-controller="MainController as MCtrl">
     <div class="row">
         <div class="col s5">
             <div class="input-field">
@@ -24,9 +24,19 @@
         </div>
         <div class="col s2">
             <a class="waves-effect waves-light btn">Run</a>
+
             <div class="input-field">
-                <input id="filter" type="text" class="validate">
+                <input ng-model="filter" id="filter" type="text" class="validate">
                 <label for="filter">Filter</label>
+            </div>
+
+            <div ng-repeat="filter in MCtrl.filters | filter:filter">
+                <div class="card blue-grey lighten-5">
+                    <div class="card-content text-darken-2">
+                        <span class="card-title">{{filter.name}}</span>
+                        <p>short description</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -38,5 +48,6 @@
 <script src="bower_components/Materialize/dist/js/materialize.min.js"></script>
 
 <script src="angular/angular_init.js"></script>
+<script src="angular/MainController.js"></script>
 </body>
 </html>
