@@ -3,9 +3,16 @@
  */
 app.controller("MainController", function(){
     var self = this;
-
     self.init = function(){
 
+    };
+
+    self.run = function (){
+
+    };
+
+
+    self.parse = function (){
     };
 
     self.filters = [

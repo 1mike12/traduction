@@ -19,5 +19,9 @@
     "gulp-sass": "^2.0.1",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.5"
+  },
+  "dependencies": {
+    "change-case": "^2.3.0",
+    "xmldoc": "^0.4.0"
   }
 }
