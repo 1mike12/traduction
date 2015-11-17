@@ -15,8 +15,8 @@ app.controller("MainController", function ($window) {
         angular.forEach(self.filters, function (filter) {
             if (filter.active) {
                 output = filter.getOutput(input);
-                output.replace(/<z>/g,"");
-                output.replace(/<z>/g,"");
+                output.replace(/<z>/g, "");
+                output.replace(/<z>/g, "");
             }
         });
 
@@ -30,7 +30,7 @@ app.controller("MainController", function ($window) {
     self.filters = [
         {
             name: "value: snake --> Title Case",
-            example:"snake_case --> Snake Case",
+            example: "snake_case --> Snake Case",
             active: false,
             param: "",
             pattern: "",
@@ -50,6 +50,31 @@ app.controller("MainController", function ($window) {
             }
         },
         {
+            //https://github.com/bunkat/pseudoloc
+            name: "value: psedolocalize",
+            example: "snake --> śnakeeé!",
+            active: false,
+            param: "",
+            pattern: "",
+            replace: "",
+            getOutput: function (input) {
+                var document = new xmldoc.XmlDocument(input);
+                document.eachChild(function (child, index, array) {
+                    var target = child.val;
+
+                    if (target) {
+                        pseudoloc.option.prepend = "";
+                        pseudoloc.option.append = "";
+                        pseudoloc.option.extend = 0.4;
+
+                        child.val = pseudoloc.str(target);
+                    }
+                });
+
+                return document.toString();
+            }
+        },
+        {
             name: "snake name attribute",
             active: false,
             param: "",
@@ -61,7 +86,6 @@ app.controller("MainController", function ($window) {
                     var target = child.attr.name;
 
                     if (target) {
-                        console.log(target);
                         child.attr.name = changeCase.snakeCase(target);
                     }
                 });
@@ -73,7 +97,6 @@ app.controller("MainController", function ($window) {
     ];
 
     self.toggleFilter = function (filterObj) {
-        console.log(filterObj)
         filterObj.active = !filterObj.active;
     };
 
