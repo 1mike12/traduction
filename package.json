@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "change-case": "^2.3.0",
+    "pseudoloc": "^1.1.0",
     "xmldoc": "^0.4.0"
   }
 }

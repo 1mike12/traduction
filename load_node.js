@@ -4,9 +4,12 @@
 
 var xmldoc = window.xmldoc || {};
 var changeCase = window.changeCase || {};
+var pseudoloc = window.pseudoloc || {};
 
-var xmldoc = require("xmldoc");
-var changeCase = require ("change-case");
+xmldoc = require("xmldoc");
+changeCase = require ("change-case");
+pseudoloc = require('pseudoloc');
 
 window.xmldoc = xmldoc;
 window.changeCase = changeCase;
+window.pseudoloc = pseudoloc;
