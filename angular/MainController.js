@@ -1,7 +1,7 @@
 /**
  * Created by mike on 11/17/15.
  */
-app.controller("MainController", function ($window) {
+app.controller("MainController", function ($window, FiltersService) {
     var self = this;
     self.init = function () {
 
@@ -16,7 +16,6 @@ app.controller("MainController", function ($window) {
         angular.forEach(self.filters, function (filter) {
             if (filter.active) {
                 output = filter.getOutput(input);
-                console.log(output)
             }
         });
 
@@ -36,80 +35,7 @@ app.controller("MainController", function ($window) {
      * https://github.com/nfarina/xmldoc
      * https://www.npmjs.com/package/change-case
      */
-    self.filters = [
-        {
-            name: "snake --> Title Case",
-            valueToggle: true,
-            paramToggle: false,
-            example: "snake_case --> Snake Case",
-            active: false,
-            param: "",
-            pattern: "",
-            replace: "",
-            getOutput: function (input) {
-                var document = new xmldoc.XmlDocument(input);
-                document.eachChild(function (child, index, array) {
-                    var target = child.val;
-
-                    if (target) {
-                        console.log(target);
-                        child.val = changeCase.titleCase(target);
-                    }
-                });
-
-                return document.toString();
-            }
-        },
-        {
-            //https://github.com/bunkat/pseudoloc
-            name: "psedolocalize",
-            valueToggle: true,
-            paramToggle: false,
-            example: "snake --> śnakeeé!",
-            active: false,
-            param: "",
-            pattern: "",
-            replace: "",
-            getOutput: function (input) {
-                var document = new xmldoc.XmlDocument(input);
-                document.eachChild(function (child, index, array) {
-                    var target = child.val;
-
-                    if (target) {
-                        pseudoloc.option.prepend = "";
-                        pseudoloc.option.append = "";
-                        pseudoloc.option.extend = 0.4;
-
-                        child.val = pseudoloc.str(target);
-                    }
-                });
-
-                return document.toString();
-            }
-        },
-        {
-            name: "snake name attribute",
-            valueToggle: true,
-            paramToggle: false,
-            active: false,
-            param: "",
-            pattern: "",
-            replace: "",
-            getOutput: function (input) {
-                var document = new xmldoc.XmlDocument(input);
-                document.eachChild(function (child, index, array) {
-                    var target = child.attr.name;
-
-                    if (target) {
-                        child.attr.name = changeCase.snakeCase(target);
-                    }
-                });
-
-                return document.toString();
-            }
-
-        },
-    ];
+    self.filters = FiltersService.filters;
 
     self.toggleFilter = function (filterObj) {
         filterObj.active = !filterObj.active;
