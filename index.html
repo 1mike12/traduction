@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="styles/main.css"/>
 </head>
 <body ng-app="app">
+<header>
 
-<div ng-controller="MainController as MCtrl">
+</header>
+<main ng-controller="MainController as MCtrl">
     <div class="row">
         <div class="col m4 s12">
             <div class="input-field">
@@ -38,11 +40,8 @@
             </div>
         </div>
     </div>
-
-    <div ng-include="'views/footer.html'"></div>
-
-</div>
-
+</main>
+<div ng-include="'views/footer.html'"></div>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/Materialize/dist/js/materialize.min.js"></script>
