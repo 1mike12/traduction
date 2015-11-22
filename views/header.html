@@ -4,11 +4,18 @@
             <form>
                 <div class="row">
                     <div class="input-field col offset-s4 s2">
-                        <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
-                        <label for="filled-in-box">Filled in</label>
+                        <input ng-click="MCtrl.workingOnValues()"
+                               type="checkbox"
+                               class="filled-in"
+                               id="workOnAttributes"
+                               ng-checked="MCtrl.valuesEnabled"
+                        />
+                        <label for="workOnAttributes">Values</label>
                     </div>
-                    <div class="input-field col s6">
-                        <input id="search" type="search" required>
+                    <div ng-model="MCtrl.attributes"
+                         class="input-field col s6 grey-text text-darken-4">
+                        <input id="search" type="search"
+                               ng-click="MCtrl.workingOnAttributes()">
                         <label for="search">Attributes</label>
                         <i class="material-icons">close</i>
                     </div>

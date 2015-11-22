@@ -7,6 +7,19 @@ app.controller("MainController", function ($window, FiltersService) {
 
     };
 
+    self.valuesEnabled = true;
+    self.attributesEnabled = false;
+
+    self.workingOnValues = function (){
+        self.valuesEnabled = true;
+        self.attributesEnabled = false;
+    };
+
+    self.workingOnAttributes = function (){
+        self.valuesEnabled = false;
+        self.attributesEnabled = true;
+    };
+
     self.parse = function () {
         var input = self.input;
 

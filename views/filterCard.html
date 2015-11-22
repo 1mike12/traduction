@@ -1,11 +1,18 @@
 <div class="card hoverable blue-grey blue-grey-text waves-effect waves-block waves-light"
      ng-class="filter.active ? 'darken-1 text-lighten-5' : 'lighten-5 text-darken-2'"
-     ng-click="MCtrl.toggleFilter(filter)">
+>
+
+
     <div class="card-content">
-        <span class="card-title">{{filter.name}}<i
-                class="material-icons right activator">more_vert</i></span>
+        <span class="card-title deep-orange-text"
+              ng-click="MCtrl.toggleFilter(filter)"
+              ng-class="filter.active ? 'text-lighten-5' : 'text-darken-3'">
+            {{filter.name}}
+        </span>
+        <i class="material-icons right activator">more_vert</i>
 
         <p>{{filter.example}}</p>
+
     </div>
 
 
