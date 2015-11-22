@@ -1,8 +1,8 @@
 /**
  * Created by 1mike12 on 11/22/2015.
  */
-app.service("FiltersService", function(){
-    function Service (){
+app.service("FiltersService", function () {
+    function Service() {
         var self = this;
 
         /**
@@ -90,17 +90,17 @@ app.service("FiltersService", function(){
                 pattern: "",
                 replace: "",
                 getOutput: function (input) {
-                    var document = new xmldoc.XmlDocument(input);
+                    var step1= $.parseXML(input);
+                    var $xml = $(step1);
+                    $children = $xml.find("zzz").children();
 
-                    document.eachChild(function (child, index, array) {
-                        var target = child.attr.name;
-
-                        if (target) {
-                            child.attr.name = changeCase.snakeCase(target);
-                        }
+                    $children.each(function(){
+                        var value = $(this).text();
+                        if (value == "test1")
+                            $(this).remove();
                     });
 
-                    return document.toString();
+                    return $xml.find("zzz").prop('outerHTML');
                 }
 
             },

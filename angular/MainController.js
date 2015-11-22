@@ -10,7 +10,7 @@ app.controller("MainController", function ($window, FiltersService) {
     self.parse = function () {
         var input = self.input;
 
-        input = '<zzz>' + input + '</zzz>';
+        input = '<zzz>\n' + input + '</zzz>';
         var output = "";
 
         angular.forEach(self.filters, function (filter) {
@@ -19,16 +19,15 @@ app.controller("MainController", function ($window, FiltersService) {
             }
         });
 
-        var xmlResultDocument = $.parseXML(output);
-        var $xmlResult = $(xmlResultDocument);
-        self.output = $xmlResult.find('zzz').html();
+        var document = new xmldoc.XmlDocument(output);
+        self.output = document.toString().replace("<zzz>","").replace("</zzz>","");
     };
 
-    self.getAttributes = function (){
+    self.getAttributes = function () {
         var attributes = self.attributes;
         attributes = attributes.replace(/\s/g, "");
         var params = attributes.split(",");
-        params.splice(-1,1);
+        params.splice(-1, 1);
         return params;
     };
     /**
@@ -44,5 +43,6 @@ app.controller("MainController", function ($window, FiltersService) {
     self.init();
 
     self.input = '<string name="test1">test1</string>\n' +
-    '<string name="test2">test2</string>';
+        '<string name="test2">test2</string>' +
+        '<string name="test2">test2</string>';
 });
