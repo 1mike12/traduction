@@ -1,9 +1,18 @@
-<div class="card blue-grey hoverable"
-     ng-class="filter.active ? 'darken-5 text-lighten-1' : 'lighten-5 text-darken-2'"
+<div class="card hoverable blue-grey blue-grey-text waves-effect waves-block waves-light"
+     ng-class="filter.active ? 'darken-1 text-lighten-5' : 'lighten-5 text-darken-2'"
      ng-click="MCtrl.toggleFilter(filter)">
-    <div class="card-content text-darken-2">
-        <span class="card-title">{{filter.name}}</span>
+    <div class="card-content">
+        <span class="card-title">{{filter.name}}<i
+                class="material-icons right activator">more_vert</i></span>
 
         <p>{{filter.example}}</p>
     </div>
+
+
+    <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">{{filter.name}}<i class="material-icons right">close</i></span>
+
+        <p>{{filter.description}}</p>
+    </div>
+
 </div>

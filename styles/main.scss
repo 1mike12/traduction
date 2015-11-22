@@ -10,4 +10,7 @@ main {
 
 header {
   margin-bottom:16px;
+  .row .col {
+    padding-right:0;
+  }
 }
