@@ -16,12 +16,13 @@ app.controller("MainController", function ($window) {
         angular.forEach(self.filters, function (filter) {
             if (filter.active) {
                 output = filter.getOutput(input);
+                console.log(output)
             }
         });
 
         var xmlResultDocument = $.parseXML(output);
         var $xmlResult = $(xmlResultDocument);
-        self.output = $xmlResult.html().toString();
+        self.output = $xmlResult.find('zzz').html();
     };
 
     self.getAttributes = function (){
