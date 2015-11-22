@@ -1,6 +1,10 @@
 /**
  * Created by mike on 11/17/15.
  */
+var app =  angular.module("app", []);
+/**
+ * Created by mike on 11/17/15.
+ */
 app.controller("MainController", function ($window) {
     var self = this;
     self.init = function () {
@@ -24,13 +28,6 @@ app.controller("MainController", function ($window) {
         self.output = $xmlResult.html().toString();
     };
 
-    self.getAttributes = function (){
-        var attributes = self.attributes;
-        attributes = attributes.replace(/\s/g, "");
-        var params = attributes.split(",");
-        params.splice(-1,1);
-        return params;
-    };
     /**
      * https://github.com/nfarina/xmldoc
      * https://www.npmjs.com/package/change-case

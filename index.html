@@ -9,9 +9,9 @@
 </head>
 <body ng-app="app">
 
-<div class="" ng-controller="MainController as MCtrl">
+<div ng-controller="MainController as MCtrl">
     <div class="row">
-        <div class="col ml5">
+        <div class="col m4 s12">
             <div class="input-field">
                 <textarea ng-model="MCtrl.input" id="input" class="materialize-textarea">
                 </textarea>
@@ -19,13 +19,13 @@
             </div>
 
         </div>
-        <div class="col m5">
+        <div class="col m4 s12">
             <div class="input-field">
                 <textarea ng-model="MCtrl.output" id="output" class="materialize-textarea"></textarea>
                 <label for="output">Output</label>
             </div>
         </div>
-        <div class="col m2">
+        <div class="col m4 s12">
             <button ng-click="MCtrl.parse()" class="waves-effect waves-light btn">Run</button>
 
             <div class="input-field">
@@ -34,19 +34,14 @@
             </div>
 
             <div ng-repeat="filter in MCtrl.filters | filter:filter">
-                <div class="card blue-grey hoverable"
-                     ng-class="filter.active ? 'darken-5 text-lighten-1' : 'lighten-5 text-darken-2'"
-                     ng-click="MCtrl.toggleFilter(filter)">
-                    <div class="card-content text-darken-2">
-                        <span class="card-title">{{filter.name}}</span>
-                        <p>{{filter.example}}</p>
-                    </div>
-                </div>
+                <div ng-include="'views/filterCard.html'"></div>
             </div>
         </div>
     </div>
-</div>
 
+    <div ng-include="'views/footer.html'"></div>
+
+</div>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/angular/angular.js"></script>

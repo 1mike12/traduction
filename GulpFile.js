@@ -1,6 +1,7 @@
 var sassFiles = "styles/*.scss";
 var cssDir = "styles";
 var angularFiles = ["angular/startup.js", "angular/**/*.js"];
+var html = ["views/**/*.html", "index.html"];
 var js = "js/**/*.js";
 
 var gulp = require('gulp');
@@ -36,7 +37,7 @@ gulp.task('angular', function () {
 gulp.task('watch', function () {
     plugins.livereload.listen();
     gulp.watch(sassFiles, ['sass']);
-    gulp.watch(angularFiles, ["angular"]);
+    gulp.watch(html, []);
 });
 
 gulp.task('lib', function () {
