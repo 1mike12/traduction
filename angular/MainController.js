@@ -9,18 +9,19 @@ app.controller("MainController", function ($window) {
 
     self.parse = function () {
         var input = self.input;
-        input = "<z>" + input + "</z>";
+
+        input = '<zzz>' + input + '</zzz>';
         var output;
 
         angular.forEach(self.filters, function (filter) {
             if (filter.active) {
                 output = filter.getOutput(input);
-                output.replace(/<z>/g, "");
-                output.replace(/<z>/g, "");
             }
         });
 
-        self.output = output;
+        var xmlResultDocument = $.parseXML(output);
+        var $xmlResult = $(xmlResultDocument);
+        self.output = $xmlResult.html().toString();
     };
 
     /**
@@ -101,4 +102,7 @@ app.controller("MainController", function ($window) {
     };
 
     self.init();
+
+    self.input = '<string name="test1">test1</string>\n' +
+        '<string name="test2">test2</string>';
 });

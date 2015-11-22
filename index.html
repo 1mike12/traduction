@@ -11,20 +11,21 @@
 
 <div class="" ng-controller="MainController as MCtrl">
     <div class="row">
-        <div class="col s5">
+        <div class="col ml5">
             <div class="input-field">
-                <textarea ng-model="MCtrl.input" id="input" class="materialize-textarea"></textarea>
+                <textarea ng-model="MCtrl.input" id="input" class="materialize-textarea">
+                </textarea>
                 <label for="input">Input</label>
             </div>
 
         </div>
-        <div class="col s5">
+        <div class="col m5">
             <div class="input-field">
                 <textarea ng-model="MCtrl.output" id="output" class="materialize-textarea"></textarea>
                 <label for="output">Output</label>
             </div>
         </div>
-        <div class="col s2">
+        <div class="col m2">
             <button ng-click="MCtrl.parse()" class="waves-effect waves-light btn">Run</button>
 
             <div class="input-field">
