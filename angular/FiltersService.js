@@ -29,12 +29,15 @@ app.service("FiltersService", function () {
                         }
                     });
 
-                    return document.toString();
+                    return {
+                        message : "",
+                        output : document.toString()
+                    }
                 }
             },
             {
                 //https://github.com/bunkat/pseudoloc
-                name: "psedolocalize",
+                name: "Pseudo-localize",
                 valueToggle: true,
                 paramToggle: false,
                 example: "snake --> śnakeeé!",
@@ -56,7 +59,10 @@ app.service("FiltersService", function () {
                         }
                     });
 
-                    return document.toString();
+                    return {
+                        message : "",
+                        output : document.toString()
+                    }
                 }
             },
             {
@@ -77,12 +83,16 @@ app.service("FiltersService", function () {
                         }
                     });
 
-                    return document.toString();
+                    return {
+                        message : "",
+                        output : document.toString()
+                    }
+
                 }
 
             },
             {
-                name: "strip dupes",
+                name: "Remove dupes",
                 valueToggle: true,
                 paramToggle: false,
                 active: false,
@@ -90,17 +100,27 @@ app.service("FiltersService", function () {
                 pattern: "",
                 replace: "",
                 getOutput: function (input) {
-                    var step1= $.parseXML(input);
+                    var step1 = $.parseXML(input);
                     var $xml = $(step1);
-                    $children = $xml.find("zzz").children();
+                    var $children = $xml.find("zzz").children();
 
-                    $children.each(function(){
+                    var map = {};
+                    var count = 0;
+                    $children.each(function () {
                         var value = $(this).text();
-                        if (value == "test1")
+                        if (value in map) {
                             $(this).remove();
+                            count++;
+                        } else {
+                            map[value] = true;
+                        }
+
                     });
 
-                    return $xml.find("zzz").prop('outerHTML');
+                    return {
+                        message : count + " lines removed",
+                        output : $xml.find("zzz").prop('outerHTML')
+                    }
                 }
 
             },

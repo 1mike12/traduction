@@ -1,8 +1,4 @@
 body {
-  padding-top: 16px;
-}
-
-body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -10,4 +6,8 @@ body {
 
 main {
   flex: 1 0 auto;
+}
+
+header {
+  margin-bottom:16px;
 }

@@ -37,7 +37,6 @@ gulp.task('angular', function () {
 gulp.task('watch', function () {
     plugins.livereload.listen();
     gulp.watch(sassFiles, ['sass']);
-    gulp.watch(html, []);
 });
 
 gulp.task('lib', function () {

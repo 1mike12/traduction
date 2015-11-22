@@ -11,16 +11,19 @@ app.controller("MainController", function ($window, FiltersService) {
         var input = self.input;
 
         input = '<zzz>\n' + input + '</zzz>';
-        var output = "";
 
+        var payload;
         angular.forEach(self.filters, function (filter) {
             if (filter.active) {
-                output = filter.getOutput(input);
+                payload = filter.getOutput(input);
             }
         });
 
-        var document = new xmldoc.XmlDocument(output);
-        self.output = document.toString().replace("<zzz>","").replace("</zzz>","");
+        var document = new xmldoc.XmlDocument(payload.output);
+
+        if (payload.message != "" || undefined)
+            Materialize.toast(payload.message, 1500);
+        self.output = document.toString().replace("<zzz>\n","").replace("</zzz>","");
     };
 
     self.getAttributes = function () {
