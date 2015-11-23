@@ -46,11 +46,10 @@ app.service("FiltersService", function () {
                             });
                         });
 
-                        var message = "";
 
-                        angular.forEach(attributeFound, function (attr){
-                            if (attr === false){
-                                message += attr + " wasn't found. ";
+                        angular.forEach(attributeFound, function (value, key){
+                            if (value === false){
+                                payload.message += key + " wasn't found. ";
                             }
                         });
 
@@ -64,11 +63,10 @@ app.service("FiltersService", function () {
                             }
                         });
                     }
+                    payload.message += count +" lines changed";
+                    payload.output = document.toString();
 
-                    return {
-                        message: count + " lines changed",
-                        output: document.toString()
-                    }
+                    return payload;
                 }
             },
             {

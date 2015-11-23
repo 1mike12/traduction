@@ -60,12 +60,18 @@ app.controller("MainController", function ($window, FiltersService) {
 
         var params = attributes.split(",");
 
-        if (params.length > 0) {
+        if (params.length > 0 && params[0] != "") {
             return params;
         } else {
             return false;
         }
     };
+
+    self.useOutput = function (){
+        self.input= self.output;
+        self.output= "";
+    };
+
     /**
      * https://github.com/nfarina/xmldoc
      * https://www.npmjs.com/package/change-case
