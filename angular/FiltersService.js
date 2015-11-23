@@ -12,34 +12,70 @@ app.service("FiltersService", function () {
         self.filters = [
             {
                 name: "snake --> Title Case",
-                valueToggle: true,
-                paramToggle: false,
-                example: "snake_case --> Snake Case",
+                canValue: true,
+                canAttribute: true,
+                example: "one_two --> One Two",
                 active: false,
                 param: "",
                 pattern: "",
                 replace: "",
-                getOutput: function (input) {
+                getOutput: function (input, attrs) {
                     var document = new xmldoc.XmlDocument(input);
-                    document.eachChild(function (child, index, array) {
-                        var target = child.val;
+                    var payload = {
+                        message : "",
+                        output : null
+                    };
+                    var count = 0;
 
-                        if (target) {
-                            child.val = changeCase.titleCase(target);
-                        }
-                    });
+                    if (attrs) {
+                        var attributeFound = {};
+
+                        angular.forEach(attrs, function (attr) {
+                            attributeFound[attr] = false;
+                        });
+
+                        angular.forEach(attrs, function (attr) {
+                            document.eachChild(function (child, index, array) {
+                                var target = child.attr[attr];
+
+                                if (target) {
+                                    count ++;
+                                    child.attr[attr] = changeCase.titleCase(target);
+                                    attributeFound[attr] = true;
+                                }
+                            });
+                        });
+
+                        var message = "";
+
+                        angular.forEach(attributeFound, function (attr){
+                            if (attr === false){
+                                message += attr + " wasn't found. ";
+                            }
+                        });
+
+                    } else {
+                        document.eachChild(function (child, index, array) {
+                            var target = child.val;
+
+                            if (target) {
+                                count++;
+                                child.val = changeCase.titleCase(target);
+                            }
+                        });
+                    }
 
                     return {
-                        message : "",
-                        output : document.toString()
+                        message: count + " lines changed",
+                        output: document.toString()
                     }
                 }
             },
             {
                 //https://github.com/bunkat/pseudoloc
                 name: "Pseudo-localize",
-                valueToggle: true,
-                paramToggle: false,
+                canValue: true,
+                canAttribute: false,
                 example: "snake --> śnakeeé!",
                 active: false,
                 param: "",
@@ -59,16 +95,15 @@ app.service("FiltersService", function () {
                         }
                     });
 
-                    return {
-                        message : "",
-                        output : document.toString()
-                    }
+                    payload.output = document.toString();
+
+                    return payload;
                 }
             },
             {
                 name: "snake name attribute",
-                valueToggle: true,
-                paramToggle: false,
+                canValue: true,
+                canAttribute: false,
                 active: false,
                 param: "",
                 pattern: "",
@@ -84,8 +119,8 @@ app.service("FiltersService", function () {
                     });
 
                     return {
-                        message : "",
-                        output : document.toString()
+                        message: "",
+                        output: document.toString()
                     }
 
                 }
@@ -93,8 +128,8 @@ app.service("FiltersService", function () {
             },
             {
                 name: "Remove dupes",
-                valueToggle: true,
-                paramToggle: false,
+                canValue: true,
+                canAttribute: false,
                 active: false,
                 param: "",
                 pattern: "",
@@ -118,8 +153,8 @@ app.service("FiltersService", function () {
                     });
 
                     return {
-                        message : count + " lines removed",
-                        output : $xml.find("zzz").prop('outerHTML')
+                        message: count + " lines removed",
+                        output: $xml.find("zzz").prop('outerHTML')
                     }
                 }
 

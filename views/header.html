@@ -1,22 +1,23 @@
-<header >
+<header>
     <nav class="grey lighten-3">
         <div class="nav-wrapper">
             <form>
                 <div class="row">
                     <div class="input-field col offset-s4 s2">
                         <input ng-click="MCtrl.workingOnValues()"
+                               ng-checked="MCtrl.valuesEnabled"
                                type="checkbox"
                                class="filled-in"
-                               id="workOnAttributes"
-                               ng-checked="MCtrl.valuesEnabled"
+                               id="workingOnValues"
                         />
-                        <label for="workOnAttributes">Values</label>
+                        <label for="workingOnValues">Values</label>
                     </div>
-                    <div ng-model="MCtrl.attributes"
-                         class="input-field col s6 grey-text text-darken-4">
-                        <input id="search" type="search"
-                               ng-click="MCtrl.workingOnAttributes()">
-                        <label for="search">Attributes</label>
+                    <div class="input-field col s6 grey-text text-darken-4">
+                        <input id="workOnAttributes" type="search"
+                               ng-click="MCtrl.workingOnAttributes()"
+                               ng-model="MCtrl.attrs"
+                        />
+                        <label for="workOnAttributes">Attributes</label>
                         <i class="material-icons">close</i>
                     </div>
                 </div>

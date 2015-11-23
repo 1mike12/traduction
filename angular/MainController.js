@@ -7,44 +7,64 @@ app.controller("MainController", function ($window, FiltersService) {
 
     };
 
+    self.attrs="name";
+
     self.valuesEnabled = true;
     self.attributesEnabled = false;
 
-    self.workingOnValues = function (){
+    self.workingOnValues = function () {
         self.valuesEnabled = true;
         self.attributesEnabled = false;
     };
 
-    self.workingOnAttributes = function (){
+    self.workingOnAttributes = function () {
         self.valuesEnabled = false;
         self.attributesEnabled = true;
     };
 
     self.parse = function () {
+
+        console.log(self.attrs);
+
         var input = self.input;
 
         input = '<zzz>\n' + input + '</zzz>';
 
         var payload;
-        angular.forEach(self.filters, function (filter) {
-            if (filter.active) {
-                payload = filter.getOutput(input);
-            }
-        });
+
+        if (self.getAttributes()) {
+            angular.forEach(self.filters, function (filter) {
+                if (filter.active) {
+                    payload = filter.getOutput(input, self.getAttributes());
+                }
+            });
+        } else {
+            angular.forEach(self.filters, function (filter) {
+                if (filter.active) {
+                    payload = filter.getOutput(input);
+                }
+            });
+        }
 
         var document = new xmldoc.XmlDocument(payload.output);
 
         if (payload.message != "" || undefined)
             Materialize.toast(payload.message, 1500);
-        self.output = document.toString().replace("<zzz>\n","").replace("</zzz>","");
+        self.output = document.toString().replace("<zzz>\n", "").replace("</zzz>", "");
     };
 
     self.getAttributes = function () {
-        var attributes = self.attributes;
+        var attributes = self.attrs;
         attributes = attributes.replace(/\s/g, "");
+
+
         var params = attributes.split(",");
-        params.splice(-1, 1);
-        return params;
+
+        if (params.length > 0) {
+            return params;
+        } else {
+            return false;
+        }
     };
     /**
      * https://github.com/nfarina/xmldoc

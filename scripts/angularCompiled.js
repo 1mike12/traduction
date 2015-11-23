@@ -16,8 +16,8 @@ app.service("FiltersService", function () {
         self.filters = [
             {
                 name: "snake --> Title Case",
-                valueToggle: true,
-                paramToggle: false,
+                canValue: true,
+                canAttribute: false,
                 example: "snake_case --> Snake Case",
                 active: false,
                 param: "",
@@ -42,8 +42,8 @@ app.service("FiltersService", function () {
             {
                 //https://github.com/bunkat/pseudoloc
                 name: "Pseudo-localize",
-                valueToggle: true,
-                paramToggle: false,
+                canValue: true,
+                canAttribute: false,
                 example: "snake --> śnakeeé!",
                 active: false,
                 param: "",
@@ -71,8 +71,8 @@ app.service("FiltersService", function () {
             },
             {
                 name: "snake name attribute",
-                valueToggle: true,
-                paramToggle: false,
+                canValue: true,
+                canAttribute: false,
                 active: false,
                 param: "",
                 pattern: "",
@@ -97,8 +97,8 @@ app.service("FiltersService", function () {
             },
             {
                 name: "Remove dupes",
-                valueToggle: true,
-                paramToggle: false,
+                canValue: true,
+                canAttribute: false,
                 active: false,
                 param: "",
                 pattern: "",
