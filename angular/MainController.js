@@ -24,10 +24,8 @@ app.controller("MainController", function ($window, FiltersService) {
     };
 
     self.init = function () {
-
+        self.attrs = "name";
     };
-
-    self.attrs = "name";
 
     self.valuesEnabled = true;
     self.attributesEnabled = false;

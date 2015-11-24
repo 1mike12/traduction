@@ -21,10 +21,7 @@ app.service("FiltersService", function () {
                 replace: "",
                 getOutput: function (input, attrs) {
                     var document = new xmldoc.XmlDocument(input);
-                    var payload = {
-                        message : "",
-                        output : null
-                    };
+                    var payload = self.buildPayload();
                     var count = 0;
 
                     if (attrs) {
@@ -39,7 +36,7 @@ app.service("FiltersService", function () {
                                 var target = child.attr[attr];
 
                                 if (target) {
-                                    count ++;
+                                    count++;
                                     child.attr[attr] = changeCase.titleCase(target);
                                     attributeFound[attr] = true;
                                 }
@@ -47,8 +44,8 @@ app.service("FiltersService", function () {
                         });
 
 
-                        angular.forEach(attributeFound, function (value, key){
-                            if (value === false){
+                        angular.forEach(attributeFound, function (value, key) {
+                            if (value === false) {
                                 payload.message += key + " wasn't found. ";
                             }
                         });
@@ -63,7 +60,7 @@ app.service("FiltersService", function () {
                             }
                         });
                     }
-                    payload.message += count +" lines changed";
+                    payload.message += count + " lines changed";
                     payload.output = document.toString();
 
                     return payload;
@@ -74,12 +71,17 @@ app.service("FiltersService", function () {
                 name: "Pseudo-localize",
                 canValue: true,
                 canAttribute: false,
-                example: "snake --> śnakeeé!",
+                example: "one --> òonë",
                 active: false,
                 param: "",
                 pattern: "",
                 replace: "",
                 getOutput: function (input) {
+
+                    var payload = self.buildPayload();
+
+                    var count = 0;
+
                     var document = new xmldoc.XmlDocument(input);
                     document.eachChild(function (child, index, array) {
                         var target = child.val;
@@ -87,14 +89,14 @@ app.service("FiltersService", function () {
                         if (target) {
                             pseudoloc.option.prepend = "";
                             pseudoloc.option.append = "";
-                            pseudoloc.option.extend = 0.4;
-
+                            pseudoloc.option.extend = 0.7;
+                            count++;
                             child.val = pseudoloc.str(target);
                         }
                     });
 
                     payload.output = document.toString();
-
+                    payload.message = count + " lines localized";
                     return payload;
                 }
             },
@@ -107,19 +109,22 @@ app.service("FiltersService", function () {
                 pattern: "",
                 replace: "",
                 getOutput: function (input) {
+
+                    var count = 0;
+                    var payload = self.buildPayload();
+
                     var document = new xmldoc.XmlDocument(input);
                     document.eachChild(function (child, index, array) {
                         var target = child.attr.name;
 
                         if (target) {
                             child.attr.name = changeCase.snakeCase(target);
+                            count ++;
                         }
                     });
 
-                    return {
-                        message: "",
-                        output: document.toString()
-                    }
+                    payload.message = count + " lines changed";
+                    payload.output = document.toString();
 
                 }
 
@@ -133,6 +138,8 @@ app.service("FiltersService", function () {
                 pattern: "",
                 replace: "",
                 getOutput: function (input) {
+
+                    var payload = self.buildPayload();
                     var step1 = $.parseXML(input);
                     var $xml = $(step1);
                     var $children = $xml.find("zzz").children();
@@ -150,16 +157,22 @@ app.service("FiltersService", function () {
 
                     });
 
-                    return {
-                        message: count + " lines removed",
-                        output: $xml.find("zzz").prop('outerHTML')
-                    }
+                    payload.message = count + " lines removed";
+                    payload.output = $xml.find("zzz").prop('outerHTML');
+                    return payload;
                 }
 
             },
         ];
 
     }
+
+    self.buildPayload = function () {
+        return {
+            message: "",
+            output: null
+        };
+    };
 
     return new Service;
 });
