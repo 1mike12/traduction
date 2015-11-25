@@ -1,7 +1,7 @@
 /**
  * Created by mike on 11/17/15.
  */
-app.controller("MainController", function ($window, FiltersService) {
+app.controller("MainController", function ($window, FiltersService, ResourceDetector) {
     var self = this;
 
     self.history = [{
@@ -9,6 +9,19 @@ app.controller("MainController", function ($window, FiltersService) {
         teaser: "sdfsdf",
         timeStamp: 123
     }];
+
+    self.guessResourceType = function (){
+        switch(ResourceDetector.detect(self.input)){
+            case "android":
+                return "Android Detected";
+            case "ios":
+                return "IOS Detected";
+            case "kvp":
+                return "Key Value Pairs Detected";
+            default:
+                return "Unrecognized Input";
+        }
+    };
 
     self.pushToHistory = function (text) {
         var d = new Date();

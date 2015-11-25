@@ -3,20 +3,23 @@
         <div class="nav-wrapper">
             <form>
                 <div class="row">
-                    <div class="input-field col offset-s4 s2">
+                    <div class="col s4 teal-text text-accent-4">
+                        {{MCtrl.guessResourceType()}}
+                    </div>
+                    <div class="input-field col s2">
                         <input ng-click="MCtrl.workingOnValues()"
                                ng-checked="MCtrl.valuesEnabled"
                                type="checkbox"
                                class="filled-in"
                                id="workingOnValues"
-                        />
+                                />
                         <label for="workingOnValues">Values</label>
                     </div>
-                    <div class="input-field col s6 grey-text text-darken-4">
+                    <div class="input-field col s6  text-darken-4">
                         <input id="workOnAttributes" type="search"
                                ng-click="MCtrl.workingOnAttributes()"
                                ng-model="MCtrl.attrs"
-                        />
+                                />
                         <label for="workOnAttributes">Attributes</label>
                         <i class="material-icons">close</i>
                     </div>
