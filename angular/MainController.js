@@ -28,7 +28,6 @@ app.controller("MainController", function ($window, FiltersService) {
     };
 
     self.init = function () {
-        self.attrs = "name";
     };
 
     self.valuesEnabled = true;
@@ -60,7 +59,7 @@ app.controller("MainController", function ($window, FiltersService) {
                 if (self.getAttributes()) {
                     payload = filter.getOutput(input, self.getAttributes());
                 } else {
-                    payload = filter.getOutput(input)
+                    payload = filter.getOutput(input, false)
                 }
             }
         });
@@ -77,6 +76,10 @@ app.controller("MainController", function ($window, FiltersService) {
 
     self.getAttributes = function () {
         var attributes = self.attrs;
+
+        if (attributes == undefined){
+            return false;
+        }
         attributes = attributes.replace(/\s/g, "");
 
 
