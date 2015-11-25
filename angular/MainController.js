@@ -15,11 +15,16 @@ app.controller("MainController", function ($window, FiltersService) {
 
         var historyObj = {
             text: text,
-            teaser: text.slice(0,50) + "...",
+            teaser: text.slice(0, 50) + "...",
             timeStamp: d.getTime()
         };
 
         self.history.push(historyObj);
+    };
+
+    self.reload = function (history) {
+        self.input = history.text;
+        self.output = "";
     };
 
     self.init = function () {

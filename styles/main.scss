@@ -11,8 +11,12 @@ main {
 }
 
 header {
-  margin-bottom:16px;
+  margin-bottom: 16px;
   .row .col {
-    padding-right:0;
+    padding-right: 0;
   }
+}
+
+.card-action a {
+  cursor: pointer;
 }
