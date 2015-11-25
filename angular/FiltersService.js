@@ -69,6 +69,8 @@ app.service("FiltersService", function () {
                 canValue: true,
                 canAttribute: false,
                 example: "one --> òonë",
+                description: "Takes latin characters and makes them look all whack. And extends by 30% so that you can test for text views that overflow" +
+                "Funny accents also make it easy to spot strings that have not been localized if they appear normal.",
                 active: false,
                 param: "",
                 pattern: "",
