@@ -21,46 +21,43 @@ app.service("FiltersService", function () {
                 replace: "",
                 getOutput: function (input, attrs) {
                     var document = new xmldoc.XmlDocument(input);
-                    var payload = self.buildPayload();
+                    var payload = {
+                        message: "",
+                        output: null,
+                        error: ""
+                    };
                     var count = 0;
 
-                    if (attrs) {
-                        var attributeFound = {};
-
-                        angular.forEach(attrs, function (attr) {
-                            attributeFound[attr] = false;
-                        });
-
-                        angular.forEach(attrs, function (attr) {
-                            document.eachChild(function (child, index, array) {
-                                var target = child.attr[attr];
-
-                                if (target) {
-                                    count++;
-                                    child.attr[attr] = changeCase.titleCase(target);
-                                    attributeFound[attr] = true;
-                                }
-                            });
-                        });
-
-
-                        angular.forEach(attributeFound, function (value, key) {
-                            if (value === false) {
-                                payload.message += key + " wasn't found. ";
-                            }
-                        });
-
-                    } else {
+                    var attributeFound = self.initAttributeFoundMap(attrs);
+                    if (attrs === false) {
+                        attrs = [false];
+                    }
+                    angular.forEach(attrs, function (attr) {
                         document.eachChild(function (child, index, array) {
-                            var target = child.val;
+                            var target = (attrs) ? child.attr[attr] : child.val;
 
                             if (target) {
                                 count++;
-                                child.val = changeCase.titleCase(target);
+
+                                if (attrs) {
+                                    child.attr[attr] = changeCase.titleCase(target);
+                                    attributeFound[attr] = true;
+                                } else {
+                                    child.val = changeCase.titleCase(target);
+                                }
                             }
                         });
-                    }
-                    payload.message += count + " lines changed";
+                    });
+
+                    var error = "";
+                    angular.forEach(attributeFound, function (value, key) {
+                        if (value === false) {
+                            error += "attribute: " + key + " wasn't found.";
+                        }
+                    });
+
+                    payload.message = count + " lines changed";
+                    payload.error = error;
                     payload.output = document.toString();
 
                     return payload;
@@ -78,7 +75,11 @@ app.service("FiltersService", function () {
                 replace: "",
                 getOutput: function (input) {
 
-                    var payload = self.buildPayload();
+                    var payload = {
+                        message: "",
+                        output: null,
+                        error: ""
+                    };
 
                     var count = 0;
 
@@ -111,7 +112,11 @@ app.service("FiltersService", function () {
                 getOutput: function (input) {
 
                     var count = 0;
-                    var payload = self.buildPayload();
+                    var payload = {
+                        message: "",
+                        output: null,
+                        error: ""
+                    };
 
                     var document = new xmldoc.XmlDocument(input);
                     document.eachChild(function (child, index, array) {
@@ -119,7 +124,7 @@ app.service("FiltersService", function () {
 
                         if (target) {
                             child.attr.name = changeCase.snakeCase(target);
-                            count ++;
+                            count++;
                         }
                     });
 
@@ -139,7 +144,11 @@ app.service("FiltersService", function () {
                 replace: "",
                 getOutput: function (input) {
 
-                    var payload = self.buildPayload();
+                    var payload = {
+                        message: "",
+                        output: null,
+                        error: ""
+                    };
                     var step1 = $.parseXML(input);
                     var $xml = $(step1);
                     var $children = $xml.find("zzz").children();
@@ -170,8 +179,40 @@ app.service("FiltersService", function () {
     self.buildPayload = function () {
         return {
             message: "",
-            output: null
+            output: null,
+            error: ""
         };
+    };
+
+    self.initAttributeFoundMap = function (attrs) {
+        var attributeFound = {};
+        angular.forEach(attrs, function (attr) {
+            attributeFound[attr] = false;
+        });
+        return attributeFound;
+    };
+
+    self.runFilter = function (attrs, filterFunction, payload) {
+        var attributeFound = self.initAttributeFoundMap(attrs);
+        if (attrs === false) {
+            attrs = [false];
+        }
+        angular.forEach(attrs, function (attr) {
+            document.eachChild(function (child, index, array) {
+                var target = (attrs) ? child.attr[attr] : child.val;
+
+                if (target) {
+                    count++;
+
+                    if (attrs) {
+                        child.attr[attr] = filterFunction(target);
+                        attributeFound[attr] = true;
+                    } else {
+                        child.val = filterFunction(target);
+                    }
+                }
+            });
+        });
     };
 
     return new Service;

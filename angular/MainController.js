@@ -51,24 +51,22 @@ app.controller("MainController", function ($window, FiltersService) {
 
         var payload;
 
-        if (self.getAttributes()) {
-            angular.forEach(self.filters, function (filter) {
-                if (filter.active) {
+        angular.forEach(self.filters, function (filter) {
+            if (filter.active) {
+                if (self.getAttributes()) {
                     payload = filter.getOutput(input, self.getAttributes());
+                } else {
+                    payload = filter.getOutput(input)
                 }
-            });
-        } else {
-            angular.forEach(self.filters, function (filter) {
-                if (filter.active) {
-                    payload = filter.getOutput(input);
-                }
-            });
-        }
+            }
+        });
+
 
         var document = new xmldoc.XmlDocument(payload.output);
 
         if (payload.message != "" || undefined)
             Materialize.toast(payload.message, 1500);
+
         self.output = document.toString().replace("<zzz>\n", "").replace("</zzz>", "");
         self.pushToHistory(self.output);
     };
