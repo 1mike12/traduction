@@ -8,7 +8,7 @@ var pseudoloc = window.pseudoloc || {};
 
 xmldoc = require("xmldoc");
 changeCase = require ("change-case");
-pseudoloc = require('pseudoloc');
+pseudoloc = require('node-pseudo-l10n');
 
 window.xmldoc = xmldoc;
 window.changeCase = changeCase;

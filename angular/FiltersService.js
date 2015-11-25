@@ -88,11 +88,8 @@ app.service("FiltersService", function () {
                         var target = child.val;
 
                         if (target) {
-                            pseudoloc.option.prepend = "";
-                            pseudoloc.option.append = "";
-                            pseudoloc.option.extend = 0.7;
                             count++;
-                            child.val = pseudoloc.str(target);
+                            child.val = pseudoloc.transformString(target);
                         }
                     });
 

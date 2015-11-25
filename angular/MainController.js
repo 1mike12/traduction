@@ -13,10 +13,9 @@ app.controller("MainController", function ($window, FiltersService) {
     self.pushToHistory = function (text) {
         var d = new Date();
 
-
         var historyObj = {
             text: text,
-            teaser: text.trim(0, 22),
+            teaser: text.slice(0,50) + "...",
             timeStamp: d.getTime()
         };
 
