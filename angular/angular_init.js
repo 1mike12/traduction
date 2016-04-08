@@ -11,6 +11,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: "/",
             templateUrl: "views/bye.html"
         })
+        .state("bye2", {
+            url: "/writing/fanfic/ministry-of-westeros",
+            templateUrl: "views/fanfic.html"
+        })
         .state("fanfic", {
             url: "/fanfic",
             templateUrl: "views/fanfic.html"
