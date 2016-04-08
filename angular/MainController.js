@@ -7,7 +7,7 @@ app.controller("MainController", function ($window) {
     self.init = function () {
         setTimeout(function () {
             self.reveal();
-        }, 6000);
+        }, 14000);
     };
 
     self.reveal = function () {
