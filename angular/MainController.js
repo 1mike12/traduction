@@ -13,6 +13,9 @@ app.controller("MainController", function ($window) {
     self.reveal = function () {
         var el = document.querySelectorAll('.bg')[0];
         el.classList.add('animated', 'hinge');
+        setTimeout(function () {
+            el.style.display = "none";
+        }, 2000);
     };
 
     self.init();
